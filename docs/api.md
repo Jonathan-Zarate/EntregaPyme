@@ -61,3 +61,5 @@ Los errores usaran una forma estable:
 - `GET /api/admin/reports/summary`
 
 Las operaciones financieras, de asignacion y cambio de estado aceptaran idempotencia cuando corresponda.
+
+La aceptacion de un pedido usa una transaccion serializable y una actualizacion condicional. Si dos motorizados intentan aceptar el mismo pedido, uno obtiene `200` y el otro recibe `409 PEDIDO_YA_ASIGNADO` o `409 CONCURRENCIA_DETECTADA`.
