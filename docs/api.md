@@ -76,3 +76,5 @@ Aprobar un motorizado habilita su cuenta y perfil. Bloquearlo exige motivo, bloq
 Las tarifas se versionan: actualizar cierra la version activa y crea otra. Los pedidos mantienen la referencia e importes originales. PostgreSQL impide dos tarifas activas para una misma ruta.
 
 La asignacion manual usa la misma condicion atomica que la aceptacion: solo opera sobre `PENDING_ASSIGNMENT` sin motorizado. Registra al administrador en `assignedById`, el evento de estado y la auditoria.
+
+Las ganancias del motorizado suman exclusivamente pedidos `DELIVERED`. Las cancelaciones aparecen en el historial con ganancia cero. Los movimientos de billetera exponen saldos posteriores para facilitar la conciliacion.
