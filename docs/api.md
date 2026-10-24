@@ -65,3 +65,5 @@ Las operaciones financieras, de asignacion y cambio de estado aceptaran idempote
 La aceptacion de un pedido usa una transaccion serializable y una actualizacion condicional. Si dos motorizados intentan aceptar el mismo pedido, uno obtiene `200` y el otro recibe `409 PEDIDO_YA_ASIGNADO` o `409 CONCURRENCIA_DETECTADA`.
 
 Los estados operativos avanzan en orden, sin saltos. `DELIVERED` requiere evidencia previa e `Idempotency-Key`; al completarse, el saldo reservado se captura definitivamente dentro de la misma transaccion.
+
+La empresa puede cancelar hasta `HEADING_TO_PICKUP`. Los pedidos confirmados liberan la reserva a saldo disponible de forma atomica; desde `PICKED_UP`, la cancelacion ordinaria se rechaza.

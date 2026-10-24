@@ -7,6 +7,10 @@ export const orderStatusInputSchema = z.object({
   comment: z.string().trim().max(300).optional(),
 });
 
+export const cancelOrderInputSchema = z.object({
+  reason: z.string().trim().min(5).max(300),
+});
+
 export const deliveryEvidenceInputSchema = z.object({
   type: z.enum(["PHOTO", "COMMENT"]),
   url: z.url().max(1000).optional(),
@@ -29,4 +33,8 @@ export function isValidCourierTransition(fromStatus: string, toStatus: string) {
 
 export function getNextCourierStatus(status: string) {
   return nextStatus[status as keyof typeof nextStatus] ?? null;
+}
+
+export function canCompanyCancel(status: string) {
+  return ["DRAFT", "PENDING_ASSIGNMENT", "ACCEPTED", "HEADING_TO_PICKUP"].includes(status);
 }
