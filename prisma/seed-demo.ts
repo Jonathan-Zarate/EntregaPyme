@@ -15,7 +15,7 @@ async function ensureUser(input: DemoUser) {
   }
   return prisma.user.update({
     where: { id: user.id },
-    data: { role: input.role, status: "ACTIVE", banned: false, banReason: null, banExpires: null },
+    data: { role: input.role, status: "ACTIVE", emailVerified: true, banned: false, banReason: null, banExpires: null },
     select: { id: true, email: true },
   });
 }

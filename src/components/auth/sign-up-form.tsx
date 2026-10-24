@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 export function SignUpForm() {
+  const verificationRequired = process.env.NEXT_PUBLIC_EMAIL_VERIFICATION_REQUIRED === "true";
   const router = useRouter();
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
@@ -16,7 +17,8 @@ export function SignUpForm() {
     const result = await authClient.signUp.email({ name: String(formData.get("name") ?? "").trim(), email: String(formData.get("email") ?? "").trim().toLowerCase(), password });
     setPending(false);
     if (result.error) { setError("No pudimos crear la cuenta. Revisa los datos o usa otro correo."); return; }
-    router.push("/dashboard"); router.refresh();
+    const email = String(formData.get("email") ?? "").trim().toLowerCase();
+    router.push(verificationRequired ? `/verificar-correo?email=${encodeURIComponent(email)}` : "/dashboard"); router.refresh();
   }
 
   return <form action={submit} className="space-y-5">

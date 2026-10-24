@@ -12,7 +12,7 @@ export async function getCurrentUser() {
   if (!session?.user.id) return null;
   return prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, name: true, email: true, role: true, status: true, banned: true },
+    select: { id: true, name: true, email: true, emailVerified: true, role: true, status: true, banned: true },
   });
 }
 
@@ -20,6 +20,7 @@ export async function requireCurrentUser() {
   const user = await getCurrentUser();
   if (!user) redirect("/iniciar-sesion");
   if (!isActiveUser(user)) redirect("/cuenta-bloqueada");
+  if (process.env.EMAIL_VERIFICATION_REQUIRED === "true" && user.role !== "ADMIN" && !user.emailVerified) redirect(`/verificar-correo?email=${encodeURIComponent(user.email)}`);
   return user;
 }
 

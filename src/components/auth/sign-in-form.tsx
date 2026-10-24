@@ -13,7 +13,10 @@ export function SignInForm() {
     setPending(true); setError("");
     const result = await authClient.signIn.email({ email: String(formData.get("email") ?? "").trim().toLowerCase(), password: String(formData.get("password") ?? "") });
     setPending(false);
-    if (result.error) { setError("No pudimos iniciar sesion. Verifica tus datos o el estado de tu cuenta."); return; }
+    if (result.error) {
+      if (result.error.code === "EMAIL_NOT_VERIFIED") { setError("Debes verificar tu correo antes de iniciar sesion."); return; }
+      setError("No pudimos iniciar sesion. Verifica tus datos o el estado de tu cuenta."); return;
+    }
     router.push("/dashboard"); router.refresh();
   }
 

@@ -15,11 +15,14 @@ export async function authorizeApi(...roles: AppRole[]) {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    select: { id: true, name: true, email: true, role: true, status: true, banned: true },
+    select: { id: true, name: true, email: true, emailVerified: true, role: true, status: true, banned: true },
   });
 
   if (!user || !canAccessRole(user, roles)) {
     return { error: apiError(403, "SIN_PERMISO", "No tienes permiso para realizar esta accion.") } as const;
+  }
+  if (process.env.EMAIL_VERIFICATION_REQUIRED === "true" && user.role !== "ADMIN" && !user.emailVerified) {
+    return { error: apiError(403, "EMAIL_NO_VERIFICADO", "Verifica tu correo antes de operar.") } as const;
   }
 
   return { user } as const;

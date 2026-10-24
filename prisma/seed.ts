@@ -59,7 +59,7 @@ async function main() {
 
   await prisma.user.update({
     where: { id: user.id },
-    data: { role: "ADMIN", status: "ACTIVE", banned: false, banReason: null, banExpires: null },
+    data: { role: "ADMIN", status: "ACTIVE", emailVerified: true, banned: false, banReason: null, banExpires: null },
   });
 
   console.log(`Catalogo inicial preparado y administrador listo: ${email}`);
