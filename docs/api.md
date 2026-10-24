@@ -37,6 +37,7 @@ Los errores usaran una forma estable:
 ## Motorizado
 
 - `GET|PATCH /api/courier/profile`
+- `POST /api/courier/profile` convierte de forma segura una cuenta nueva sin negocio en una postulacion `PENDING`.
 - `GET /api/courier/available-orders`
 - `POST /api/orders/:id/accept`
 - `POST /api/orders/:id/reject`
