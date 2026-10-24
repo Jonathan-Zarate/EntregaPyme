@@ -59,6 +59,8 @@ Los errores usaran una forma estable:
 - `POST /api/admin/top-ups/:id/approve`
 - `POST /api/admin/top-ups/:id/reject`
 - `POST /api/admin/orders/:id/assign`
+- `GET /api/admin/orders` acepta `status`, `search`, `page` y `limit`.
+- `GET /api/admin/orders/:id` devuelve datos, evidencias y linea de tiempo.
 - `GET /api/admin/reports/summary`
 
 Las operaciones financieras, de asignacion y cambio de estado aceptaran idempotencia cuando corresponda.
@@ -72,3 +74,5 @@ La empresa puede cancelar hasta `HEADING_TO_PICKUP`. Los pedidos confirmados lib
 Aprobar un motorizado habilita su cuenta y perfil. Bloquearlo exige motivo, bloquea ambos registros, revoca todas sus sesiones y deja auditoria del administrador responsable.
 
 Las tarifas se versionan: actualizar cierra la version activa y crea otra. Los pedidos mantienen la referencia e importes originales. PostgreSQL impide dos tarifas activas para una misma ruta.
+
+La asignacion manual usa la misma condicion atomica que la aceptacion: solo opera sobre `PENDING_ASSIGNMENT` sin motorizado. Registra al administrador en `assignedById`, el evento de estado y la auditoria.
