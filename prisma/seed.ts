@@ -25,11 +25,14 @@ async function seedDistrictsAndRates() {
     for (const destination of savedDistricts) {
       const companyPrice = origin.id === destination.id ? 10 : 15;
       const courierPayment = origin.id === destination.id ? 8 : 12;
-      await prisma.deliveryRate.upsert({
-        where: { originDistrictId_destinationDistrictId_validFrom: { originDistrictId: origin.id, destinationDistrictId: destination.id, validFrom } },
-        update: { companyPrice, courierPayment, active: true, validUntil: null },
-        create: { originDistrictId: origin.id, destinationDistrictId: destination.id, companyPrice, courierPayment, validFrom },
-      });
+      const activeRate = await prisma.deliveryRate.findFirst({ where: { originDistrictId: origin.id, destinationDistrictId: destination.id, active: true }, select: { id: true } });
+      if (!activeRate) {
+        await prisma.deliveryRate.upsert({
+          where: { originDistrictId_destinationDistrictId_validFrom: { originDistrictId: origin.id, destinationDistrictId: destination.id, validFrom } },
+          update: { companyPrice, courierPayment, active: true, validUntil: null },
+          create: { originDistrictId: origin.id, destinationDistrictId: destination.id, companyPrice, courierPayment, validFrom },
+        });
+      }
     }
   }
 }

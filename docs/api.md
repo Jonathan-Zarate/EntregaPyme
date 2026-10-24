@@ -70,3 +70,5 @@ Los estados operativos avanzan en orden, sin saltos. `DELIVERED` requiere eviden
 La empresa puede cancelar hasta `HEADING_TO_PICKUP`. Los pedidos confirmados liberan la reserva a saldo disponible de forma atomica; desde `PICKED_UP`, la cancelacion ordinaria se rechaza.
 
 Aprobar un motorizado habilita su cuenta y perfil. Bloquearlo exige motivo, bloquea ambos registros, revoca todas sus sesiones y deja auditoria del administrador responsable.
+
+Las tarifas se versionan: actualizar cierra la version activa y crea otra. Los pedidos mantienen la referencia e importes originales. PostgreSQL impide dos tarifas activas para una misma ruta.
