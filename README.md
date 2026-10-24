@@ -4,7 +4,15 @@ MVP web responsive de delivery B2B para negocios en Peru. Permite cotizar envios
 
 ## Estado
 
-En construccion. La primera etapa cubre fundamentos, PostgreSQL, Prisma, autenticacion y gestion inicial de usuarios.
+Primera etapa desplegada. Incluye fundamentos, PostgreSQL, Prisma, autenticacion, autorizacion por roles y paneles iniciales para empresa, motorizado y administrador.
+
+## Demo
+
+- Aplicacion: https://entrega-pyme.vercel.app
+- Base de datos: PostgreSQL administrado en Neon, region AWS South America East 1 (Sao Paulo)
+- Despliegue: Vercel conectado a la rama `main` de GitHub
+
+El acceso administrativo se valida con credenciales bootstrap almacenadas solo en el entorno local y nunca dentro del repositorio.
 
 ## Stack
 
@@ -42,6 +50,12 @@ pnpm test
 2. Configurar una URL PostgreSQL compatible con Prisma.
 3. Ejecutar las migraciones.
 4. Crear el usuario administrador inicial mediante el script de semilla.
+
+```bash
+pnpm db:generate
+pnpm db:deploy
+pnpm db:seed
+```
 
 Nunca se deben versionar credenciales reales.
 
