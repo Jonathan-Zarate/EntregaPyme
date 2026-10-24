@@ -11,7 +11,7 @@ function required(name: string) {
 async function login(user: LoginUser) {
   const response = await fetch(`${baseUrl}/api/auth/sign-in/email`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Origin: baseUrl },
     body: JSON.stringify(user),
   });
   if (!response.ok) throw new Error(`Login fallo (${response.status}).`);
@@ -23,7 +23,7 @@ async function login(user: LoginUser) {
 async function api(path: string, cookie: string, init: RequestInit = {}) {
   const response = await fetch(`${baseUrl}${path}`, {
     ...init,
-    headers: { "Content-Type": "application/json", Cookie: cookie, ...init.headers },
+    headers: { "Content-Type": "application/json", Origin: baseUrl, Cookie: cookie, ...init.headers },
   });
   const payload = await response.json();
   if (!response.ok) throw new Error(`${path}: ${payload.error?.code ?? response.status} - ${payload.error?.message ?? "Error"}`);
