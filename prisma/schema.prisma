@@ -302,6 +302,7 @@ model TopUp {
 
   @@index([companyId, status, requestedAt])
   @@index([reviewedById])
+  @@unique([companyId, operationCode])
 }
 
 model DeliveryOrder {
