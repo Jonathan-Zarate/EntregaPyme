@@ -36,6 +36,7 @@ yarn-error.log*
 .env*
 !.env.example
 bootstrap-credentials.local
+demo-credentials.local
 
 # vercel
 .vercel
