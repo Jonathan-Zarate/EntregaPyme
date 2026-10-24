@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EntregaPyme
 
-## Getting Started
+MVP web responsive de delivery B2B para negocios en Peru. Permite cotizar envios por distrito, reservar saldo, solicitar un motorizado y auditar el servicio hasta su entrega, sin mapas ni geolocalizacion.
 
-First, run the development server:
+## Estado
+
+En construccion. La primera etapa cubre fundamentos, PostgreSQL, Prisma, autenticacion y gestion inicial de usuarios.
+
+## Stack
+
+- Next.js 16, React 19 y TypeScript
+- Tailwind CSS
+- Prisma ORM y PostgreSQL administrado en Neon
+- Better Auth con sesiones persistidas
+- Vercel como plataforma de despliegue
+- pnpm como gestor de paquetes
+
+## Modulos
+
+- Autenticacion y autorizacion
+- Empresas y miembros
+- Motorizados
+- Distritos y tarifas
+- Billeteras, recargas y movimientos
+- Pedidos e historial de estados
+- Evidencias de entrega
+- Reportes y auditoria
+
+## Comandos
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
+pnpm lint
+pnpm build
+pnpm test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configuracion local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Copiar `.env.example` como `.env`.
+2. Configurar una URL PostgreSQL compatible con Prisma.
+3. Ejecutar las migraciones.
+4. Crear el usuario administrador inicial mediante el script de semilla.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Nunca se deben versionar credenciales reales.
 
-## Learn More
+## Documentacion
 
-To learn more about Next.js, take a look at the following resources:
+- [Alcance y reglas](docs/alcance-mvp.md)
+- [Arquitectura](docs/arquitectura.md)
+- [Modelo de datos](docs/modelo-datos.md)
+- [Contrato HTTP inicial](docs/api.md)
+- [Plan de implementacion](docs/plan-implementacion.md)
+- [ADR-001: arquitectura y plataforma](docs/adr/001-arquitectura-plataforma.md)
+- [Bitacora de desarrollo](docs/bitacora/2026-10-24-inicio.md)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Principios
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Las reglas financieras se ejecutan dentro de transacciones.
+- La interfaz orienta, pero el servidor siempre autoriza.
+- Todo cambio de estado deja evidencia inmutable.
+- Los importes historicos no cambian si se modifica una tarifa.
+- Los commits deben ser pequenos, verificables y explicar las decisiones.
