@@ -5,6 +5,7 @@ import { authorizeApi } from "@/lib/api-authorization";
 import { prisma } from "@/lib/prisma";
 import { findApprovedCourier } from "@/modules/couriers/server/approved-courier";
 import { deliveryEvidenceInputSchema } from "@/modules/orders/domain/order-workflow";
+import { isOrderBlobUrl } from "@/modules/orders/domain/photo-evidence";
 
 export async function POST(request: Request, context: { params: Promise<{ id: string }> }) {
   const access = await authorizeApi("COURIER");
@@ -20,6 +21,7 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
     select: { id: true },
   });
   if (!order) return apiError(404, "PEDIDO_NO_DISPONIBLE", "El pedido no esta asignado a tu perfil o ya finalizo.");
+  if (parsed.data.type === "PHOTO" && (!parsed.data.url || !isOrderBlobUrl(parsed.data.url, id))) return apiError(422, "FOTO_NO_AUTORIZADA", "La fotografia debe provenir del almacenamiento autorizado para este pedido.");
 
   const evidence = await prisma.deliveryEvidence.create({
     data: { orderId: id, courierId: courier.id, actorId: access.user.id, ...parsed.data },

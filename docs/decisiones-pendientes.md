@@ -22,7 +22,7 @@ Falta confirmar los documentos obligatorios, su vigencia y si se almacenaran arc
 
 ## Evidencias
 
-Se debe elegir proveedor de objetos antes de implementar fotografias. Alternativas economicas: Vercel Blob, Cloudinary o un bucket S3 compatible. La base solo guardara metadatos y URL; nunca binarios.
+Se eligio Vercel Blob privado por su integracion con el despliegue actual. El navegador carga directamente JPEG, PNG o WebP de hasta 5 MB mediante un token temporal autorizado por pedido; PostgreSQL conserva solo la URL y metadatos, nunca el binario.
 
 ## Notificaciones
 
