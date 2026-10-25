@@ -81,3 +81,5 @@ La asignacion manual usa la misma condicion atomica que la aceptacion: solo oper
 Las ganancias del motorizado suman exclusivamente pedidos `DELIVERED`. Las cancelaciones aparecen en el historial con ganancia cero. Los movimientos de billetera exponen saldos posteriores para facilitar la conciliacion.
 
 Los reportes aceptan `from` y `to` en formato `YYYY-MM-DD`. Ingresos, pagos y margen consideran solo pedidos entregados; la exportacion CSV esta limitada a 5 000 filas y neutraliza formulas.
+
+Las notificaciones del MVP son enlaces `wa.me` generados en el navegador. El usuario confirma manualmente el envio; no existe integracion con la API de WhatsApp ni una pagina publica que exponga datos del pedido.
