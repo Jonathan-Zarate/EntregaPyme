@@ -62,6 +62,7 @@ Los errores usaran una forma estable:
 - `GET /api/admin/orders` acepta `status`, `search`, `page` y `limit`.
 - `GET /api/admin/orders/:id` devuelve datos, evidencias y linea de tiempo.
 - `GET /api/admin/reports/summary`
+- `GET /api/admin/reports/orders.csv`
 
 Las operaciones financieras, de asignacion y cambio de estado aceptaran idempotencia cuando corresponda.
 
@@ -78,3 +79,5 @@ Las tarifas se versionan: actualizar cierra la version activa y crea otra. Los p
 La asignacion manual usa la misma condicion atomica que la aceptacion: solo opera sobre `PENDING_ASSIGNMENT` sin motorizado. Registra al administrador en `assignedById`, el evento de estado y la auditoria.
 
 Las ganancias del motorizado suman exclusivamente pedidos `DELIVERED`. Las cancelaciones aparecen en el historial con ganancia cero. Los movimientos de billetera exponen saldos posteriores para facilitar la conciliacion.
+
+Los reportes aceptan `from` y `to` en formato `YYYY-MM-DD`. Ingresos, pagos y margen consideran solo pedidos entregados; la exportacion CSV esta limitada a 5 000 filas y neutraliza formulas.
