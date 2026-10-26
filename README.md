@@ -4,7 +4,7 @@ MVP web responsive de delivery B2B para negocios en Peru. Permite cotizar envios
 
 ## Estado
 
-Primera etapa desplegada. Incluye fundamentos, PostgreSQL, Prisma, autenticacion, autorizacion por roles y paneles iniciales para empresa, motorizado y administrador.
+MVP funcional desplegado y verificado de extremo a extremo. Incluye operacion por roles, saldo transaccional, tarifas versionadas, concurrencia, evidencia fotografica privada, reportes y pruebas productivas reproducibles.
 
 ## Demo
 
@@ -21,6 +21,7 @@ El acceso administrativo se valida con credenciales bootstrap almacenadas solo e
 - Prisma ORM y PostgreSQL administrado en Neon
 - Better Auth con sesiones persistidas
 - Vercel como plataforma de despliegue
+- Vercel Blob privado para evidencias fotograficas
 - pnpm como gestor de paquetes
 
 ## Modulos
@@ -33,6 +34,7 @@ El acceso administrativo se valida con credenciales bootstrap almacenadas solo e
 - Pedidos e historial de estados
 - Evidencias de entrega
 - Reportes y auditoria
+- Notificaciones manuales mediante enlaces de WhatsApp
 
 ## Comandos
 
@@ -42,6 +44,8 @@ pnpm dev
 pnpm lint
 pnpm build
 pnpm test
+pnpm smoke:production
+pnpm quality:production
 ```
 
 ## Configuracion local
@@ -50,6 +54,7 @@ pnpm test
 2. Configurar una URL PostgreSQL compatible con Prisma.
 3. Ejecutar las migraciones.
 4. Crear el usuario administrador inicial mediante el script de semilla.
+5. Crear un Blob Store privado y configurar `BLOB_READ_WRITE_TOKEN` para habilitar fotografias.
 
 ```bash
 pnpm db:generate
@@ -68,6 +73,23 @@ Nunca se deben versionar credenciales reales.
 - [Plan de implementacion](docs/plan-implementacion.md)
 - [ADR-001: arquitectura y plataforma](docs/adr/001-arquitectura-plataforma.md)
 - [Bitacora de desarrollo](docs/bitacora/2026-10-24-inicio.md)
+- [Manual por rol](docs/manual-por-rol.md)
+- [Checklist de despliegue](docs/checklist-despliegue.md)
+- [Evidencias productivas](docs/evidencias)
+
+## Estado de calidad
+
+- 32 pruebas unitarias aprobadas.
+- Smoke productivo del flujo financiero.
+- Demo web completa Empresa -> Administrador -> Motorizado -> Entrega.
+- Autorizacion cruzada, concurrencia y carga moderada automatizadas.
+- Ultima linea base: 100 lecturas, concurrencia 10, cero errores y p95 de 2264 ms.
+
+## Limites conocidos
+
+- La verificacion real de correo queda desactivada hasta configurar Resend y un dominio remitente.
+- Falta configurar rate limiting distribuido o proteccion equivalente en Vercel antes de trafico comercial.
+- Las decisiones sobre cancelacion posterior al recojo, documentos y responsabilidad requieren validacion comercial.
 
 ## Principios
 
