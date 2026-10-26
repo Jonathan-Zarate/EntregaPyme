@@ -217,6 +217,7 @@ export function OrderCreationForm({
         </div>
       )}
       <button
+        formNoValidate={Boolean(quote)}
         disabled={pending}
         className="md:col-span-2 rounded-xl bg-blue-700 px-5 py-3 font-semibold text-white hover:bg-blue-800 disabled:opacity-60"
       >
