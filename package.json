@@ -19,6 +19,7 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:seed-demo": "tsx prisma/seed-demo.ts",
     "smoke:production": "tsx scripts/smoke-production.ts",
+    "quality:production": "tsx --env-file=.env scripts/quality-production.ts",
     "db:studio": "prisma studio",
     "postinstall": "prisma generate"
   },
